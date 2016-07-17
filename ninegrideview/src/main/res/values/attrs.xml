@@ -2,5 +2,8 @@
 <resources>
     <declare-styleable name="LGNineGrideView">
         <attr name="space" format="dimension"/>
+        <attr name="singleImageRatio" format="float"/>
+        <attr name="singleImageWidthRatioToParent" format="float"/>
+        <attr name="singleImageRatioMode" format="integer"/>
     </declare-styleable>
 </resources>

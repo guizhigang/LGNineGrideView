@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         LGNineGrideView = (LGNineGrideView)findViewById(R.id.grideView);
-        LGNineGrideView.setImageDatas(urls);
+        assert LGNineGrideView != null;
+        LGNineGrideView.setUrls(urls);
 
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < countIndex; ++i){
                     urls.add(TestData.urlsArray[i]);
                 }
-                LGNineGrideView.setImageDatas(urls);
+                LGNineGrideView.setUrls(urls);
             }
         });
 

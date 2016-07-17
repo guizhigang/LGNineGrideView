@@ -1,6 +1,8 @@
 package com.gui.ninegridview;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +19,8 @@ import com.gui.ninegrideview.LGNineGrideView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import sample.ViewPagerActivity;
 
 public class ListViewActivity extends AppCompatActivity {
     private static String TAG = "ListViewActivity";
@@ -44,11 +48,7 @@ public class ListViewActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem + visibleItemCount >= totalItemCount){
-                    loadMore = true;
-                }else{
-                    loadMore = false;
-                }
+                loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
             }
         });
     }
@@ -60,7 +60,7 @@ public class ListViewActivity extends AppCompatActivity {
         int count = 100;
         for (int i = 0; i < count; ++i){
             DataModel model = new DataModel();
-            ArrayList lists = new ArrayList();
+            ArrayList<String> lists = new ArrayList();
             int picNum = random.nextInt(9) + 1;
             for (int j = 0; j < picNum; ++j){
                 int index = random.nextInt(picNum);
@@ -125,7 +125,7 @@ public class ListViewActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            DataModel model = getItem(position);
+            final DataModel model = getItem(position);
             ViewHolder holder = null;
             if(convertView == null){
                 holder = new ViewHolder();
@@ -139,7 +139,16 @@ public class ListViewActivity extends AppCompatActivity {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.tv.setText(model.getText());
-            holder.grideView.setImageDatas(model.getUrls());
+            holder.grideView.setUrls(model.getUrls());
+            holder.grideView.setOnItemClickListener(new LGNineGrideView.OnItemClickListener() {
+                @Override
+                public void onClickItem(int position, View view) {
+                    Intent intent = new Intent(context, ViewPagerActivity.class);
+                    intent.putExtra("position",position);
+                    intent.putStringArrayListExtra(ViewPagerActivity.KEY_IMAGE_URLS,(ArrayList<String>) model.getUrls());
+                    context.startActivity(intent);
+                }
+            });
             return convertView;
         }
     }

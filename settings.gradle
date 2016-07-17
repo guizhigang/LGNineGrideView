@@ -1,1 +1,1 @@
-include ':app', ':ninegrideview'
+include ':app', ':ninegrideview', ':library'

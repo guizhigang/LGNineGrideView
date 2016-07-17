@@ -1,7 +1,12 @@
 package com.gui.ninegrideview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.view.View;
 import android.widget.ImageView;
+
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 /**
  * Created by guizhigang on 16/7/14.
@@ -31,7 +36,7 @@ public class DefaultImageCreator implements LGNineGrideView.ImageCreator {
     }
 
     @Override
-    public void loadImage(Context context,String url, ImageView imageView) {
+    public void loadImage(Context context, String url, ImageView imageView) {
         MyImageLoader.getInstance(context).loadImage(url, imageView);
     }
 }
